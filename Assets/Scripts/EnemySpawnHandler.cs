@@ -25,13 +25,19 @@ public class EnemySpawnHandler : MonoBehaviour
         CurrentEnemy = queueScript.GetCurrentQueueElement();
         if (CurrentEnemy != null && !isEnemyOnField)
         {
-
+            //instantiate from resources
             var instance = Instantiate(SlimePrefab) as GameObject;
             
             instance.transform.SetParent(EnemyCanvas);
 
-            Debug.Log(EnemyDir + CurrentEnemy);
             isEnemyOnField = true;
+
+            if (enemyScript.GetIsDead())
+            {
+                Destroy(instance, 2f);
+                //spawn next from list
+            }
         }
+        
     }
 }

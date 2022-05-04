@@ -28,15 +28,16 @@ public class Enemy : MonoBehaviour
     {
         return EnemyUnderAttack; 
     }
-    //refactor isdead mechanic 
-    public void SetEnemyDead(bool isDead) 
-    {
-        this.isDead = isDead;
-    }
-
     public bool GetIsDead()
     {
-        return isDead;
+        if (enemyhealthbar.HasNoHP())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
 }

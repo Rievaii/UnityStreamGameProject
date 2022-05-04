@@ -19,11 +19,15 @@ public class EnemyHealthBar : MonoBehaviour
         EnemySlider.value -= DamageAmount;
     }
 
-    private void Update()
+    public bool HasNoHP()
     {
-        if (EnemySlider.value <= 0)
+        if(EnemySlider.value< 1)
         {
-            enemyClass.SetEnemyDead(true);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
