@@ -1,8 +1,7 @@
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{
-    //Enemy container to anchor
+{ 
     public GameObject enemycanvas;
     public EnemyHealthBar enemyhealthbar;
     public MainHeroScript mainheroscript;
@@ -27,6 +26,10 @@ public class Enemy : MonoBehaviour
     public bool GetEnemyUnderAttack()
     {
         return EnemyUnderAttack; 
+    }
+    public float GetHP()
+    {
+        return enemyhealthbar.EnemySlider.value;
     }
     public bool GetIsDead()
     {

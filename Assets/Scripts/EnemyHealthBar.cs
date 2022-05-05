@@ -7,6 +7,7 @@ public class EnemyHealthBar : MonoBehaviour
 {
     public Slider EnemySlider;
     public Enemy enemyClass;
+    public float CurrentHP;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     public bool HasNoHP()
     {
-        if (EnemySlider.value == 0)
+        if (EnemySlider.value < 1 )
         {
             return true;
         }
@@ -29,5 +30,13 @@ public class EnemyHealthBar : MonoBehaviour
         {
             return false;
         }
+    }
+    public float GetHP()
+    {
+        return EnemySlider.value;
+    }
+    private void Update()
+    {
+        //CurrentHP = GetHP();    
     }
 }

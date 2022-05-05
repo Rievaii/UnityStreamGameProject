@@ -406,7 +406,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2809763812550325992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,7 +471,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 20
   m_WholeNumbers: 1
-  m_Value: 0
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -489,6 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySlider: {fileID: 2809763812550325993}
   enemyClass: {fileID: 2809763812560853377}
+  CurrentHP: 0
 --- !u!1 &2809763812560853379
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,3 +544,4 @@ MonoBehaviour:
   enemyhealthbar: {fileID: 2809763812550325994}
   mainheroscript: {fileID: 6436473748789674122, guid: a22f2363c4f9e3941a0e7640609599bc, type: 3}
   animator: {fileID: 2809763810793127651}
+  CurrentHP: 0
