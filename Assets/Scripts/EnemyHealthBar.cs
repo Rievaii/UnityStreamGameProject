@@ -21,7 +21,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     public bool HasNoHP()
     {
-        if(EnemySlider.value< 1)
+        if (EnemySlider.value == 0)
         {
             return true;
         }

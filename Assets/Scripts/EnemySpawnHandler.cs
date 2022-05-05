@@ -32,12 +32,17 @@ public class EnemySpawnHandler : MonoBehaviour
 
             isEnemyOnField = true;
 
-            if (enemyScript.GetIsDead())
+            try 
             {
-                Destroy(instance, 2f);
-                //spawn next from list
+                if (GameObject.FindGameObjectWithTag("EnemyUnit").GetComponent<Enemy>().GetIsDead())
+                {
+                    foreach (Transform child in EnemyCanvas.transform)
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
             }
+            catch { Debug.Log("Unable to find clone script element"); }
         }
-        
     }
 }

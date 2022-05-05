@@ -15,8 +15,6 @@ public class MainHeroScript : MonoBehaviour
     public void Start()
     {
         animator = GetComponent<Animator>();
-
-
     }
 
     private void JumpAttack()
@@ -33,9 +31,8 @@ public class MainHeroScript : MonoBehaviour
     public int DiceRoll()
     {
         int Damage = Random.Range(4, 8);
-
-        //EnemySpawner.SetEnemyUnderAttack(true, Damage);
-        GameObject.FindGameObjectWithTag("EnemyUnit").GetComponent<Enemy>().SetEnemyUnderAttack(true, Damage);
+        try { GameObject.FindGameObjectWithTag("EnemyUnit").GetComponent<Enemy>().SetEnemyUnderAttack(true, Damage); }
+        catch { Debug.Log("Unable to find clone script element"); }
         return Damage;
     }
 
@@ -51,7 +48,8 @@ public class MainHeroScript : MonoBehaviour
 
         animator.SetBool("isAttacking", false);
         animator.Play("IDLE");
-        GameObject.FindGameObjectWithTag("EnemyUnit").GetComponent<Enemy>().SetEnemyUnderAttack(false);
+        try { GameObject.FindGameObjectWithTag("EnemyUnit").GetComponent<Enemy>().SetEnemyUnderAttack(false); }
+        catch { Debug.Log("Unable to find clone script"); }
     }
 
     public void Update()
