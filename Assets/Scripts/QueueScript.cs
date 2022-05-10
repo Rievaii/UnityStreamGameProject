@@ -23,7 +23,7 @@ public class QueueScript : MonoBehaviour
         TileNames = Directory.GetFiles(TileNamesPath);
         
         AddEnemyToQueue("Slime");
-        AddEnemyToQueue("Goblin", 3);
+        AddEnemyToQueue("Slime", 7);
         CurrentEnemy = ListElements[0].transform.name;
     }
 
