@@ -5,10 +5,11 @@ public class Enemy : MonoBehaviour
     public GameObject enemycanvas;
     public EnemyHealthBar enemyhealthbar;
     public MainHeroScript mainheroscript;
+    [SerializeField]
+    private bool isDead;
 
 
     private bool EnemyUnderAttack = false;
-    private bool isDead = false;
     private void Start()
     {
         mainheroscript = GetComponent<MainHeroScript>();  
@@ -31,15 +32,18 @@ public class Enemy : MonoBehaviour
     {
         return enemyhealthbar.EnemySlider.value;
     }
+    
     public bool GetIsDead()
     {
         if (enemyhealthbar.HasNoHP())
         {
-            return true;
+            isDead = true;
+            return isDead;
         }
         else
         {
-            return false;
+            isDead=false;   
+            return isDead;
         }
     }
     

@@ -873,7 +873,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlimePrefab: {fileID: 2809763812560853379, guid: d821ce4757a8aea47ac3c3d3ecafec75, type: 3}
   queueScript: {fileID: 2017070661}
-  enemyScript: {fileID: 2809763812560853377, guid: d821ce4757a8aea47ac3c3d3ecafec75, type: 3}
   EnemyCanvas: {fileID: 467598399}
 --- !u!114 &467598401
 MonoBehaviour:
@@ -972,6 +971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySlider: {fileID: 481896610}
   enemyClass: {fileID: 521783242}
+  CurrentHP: 0
 --- !u!114 &481896610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1298,6 +1298,7 @@ MonoBehaviour:
   enemycanvas: {fileID: 467598395}
   enemyhealthbar: {fileID: 481896609}
   mainheroscript: {fileID: 1018367343}
+  isDead: 0
   animator: {fileID: 1952735400}
 --- !u!1 &688181383
 GameObject:

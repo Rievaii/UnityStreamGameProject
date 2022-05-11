@@ -35,8 +35,4 @@ public class EnemyHealthBar : MonoBehaviour
     {
         return EnemySlider.value;
     }
-    private void Update()
-    {
-        //CurrentHP = GetHP();    
-    }
 }

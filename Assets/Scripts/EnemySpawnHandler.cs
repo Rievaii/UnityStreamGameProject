@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 
 public class EnemySpawnHandler : MonoBehaviour
 {
     public GameObject SlimePrefab;
     public QueueScript queueScript;
-    public Enemy enemyScript;
     public Transform EnemyCanvas;
     private string CurrentEnemy;
     private string EnemyDir  = @"\Resources\Enemies\Slime.Prefab";
@@ -14,13 +14,36 @@ public class EnemySpawnHandler : MonoBehaviour
 
     private void Start()
     {
+
         foreach (Transform child in EnemyCanvas.transform)
         {
             Destroy(child.gameObject);
         }
-       
+
+    }    
+    public bool CheckEnemyOnField()
+    {
+        if (isEnemyOnField)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    private void Update()
+    public void SetEnemyOnField(bool FieldState)
+    {
+        if (FieldState)
+        {
+            isEnemyOnField = true;
+        }
+        if (!FieldState)
+        {
+            isEnemyOnField = false;
+        }
+    }
+    public void Update()
     {
         CurrentEnemy = queueScript.GetCurrentQueueElement();
         if (CurrentEnemy != null && !isEnemyOnField)
@@ -31,15 +54,24 @@ public class EnemySpawnHandler : MonoBehaviour
             instance.transform.SetParent(EnemyCanvas);
 
             isEnemyOnField = true;
-
-            try 
+        }
+        try
+        {
+            if (GameObject.FindGameObjectWithTag("EnemyUnit").GetComponent<Enemy>().GetIsDead())
             {
-                if (GameObject.FindGameObjectWithTag("EnemyUnit").GetComponent<Enemy>().GetIsDead())
+                foreach (Transform child in EnemyCanvas.transform)
                 {
-                    Destroy(instance, 2f);
+                    Destroy(child.gameObject, 2f);
                 }
+                //isEnemyOnField = false;
+                Debug.Log("enemy is dead");
+                //current enemy switch to next one 
+                //QueueScript.NextTile();
             }
-            catch { Debug.Log("Unable to find clone script element"); }
+        }
+        catch(NullReferenceException e)
+        {
+            isEnemyOnField=false;
         }
     }
 }

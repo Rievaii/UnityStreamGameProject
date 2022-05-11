@@ -3,7 +3,7 @@ using UnityEngine;
 public class Slime : Enemy
 {
     public Animator animator;
-    public float CurrentHP;
+    
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -11,7 +11,6 @@ public class Slime : Enemy
 
     private void Update()
     {
-        CurrentHP = GetHP();
         if (GetEnemyUnderAttack())
         {
             animator.SetBool("isUnderAttack", true);
