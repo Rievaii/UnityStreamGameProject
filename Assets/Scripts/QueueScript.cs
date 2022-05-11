@@ -82,19 +82,7 @@ public class QueueScript : MonoBehaviour
             Debug.Log("No EnemyName specified");
         }
     }
-    public string GetCurrentQueueElement()
-    {
-        try
-        {
-            return ListElements[0].transform.name;
-        }
-        catch
-        {
-            Debug.Log("List of enemies is null");
-        }
-        return null;
-    }
-    public string GetExactElement(int ElementNumber)
+    public string GetCurrentQueueElement(int ElementNumber)
     {
         try
         {
@@ -106,7 +94,4 @@ public class QueueScript : MonoBehaviour
         }
         return null;
     }
-    //public string GetNextQueueElements()
-    
-
 }

@@ -6,9 +6,9 @@ public class EnemySpawnHandler : MonoBehaviour
     public GameObject SlimePrefab;
     public QueueScript queueScript;
     public Transform EnemyCanvas;
+    [SerializeField]
     private string CurrentEnemy;
-    private string EnemyDir  = @"\Resources\Enemies\Slime.Prefab";
-    
+
 
     private bool isEnemyOnField = false;
 
@@ -20,38 +20,25 @@ public class EnemySpawnHandler : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-    }    
-    public bool CheckEnemyOnField()
-    {
-        if (isEnemyOnField)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
-    public void SetEnemyOnField(bool FieldState)
+    public void SpawnAnEnemy(string EnemyName)
     {
-        if (FieldState)
-        {
-            isEnemyOnField = true;
-        }
-        if (!FieldState)
-        {
-            isEnemyOnField = false;
-        }
+        //string TileNamesPath = @"Assets/Resources/EnemyTiles/";
+        string EnemyDir = @"Assets/Resources/Enemies/Slime.prefab/";
+        //instantiate from resources
+        var instance = Instantiate(Resources.Load<GameObject>("Slime 1")) as GameObject;
+        
+
+        instance.transform.SetParent(EnemyCanvas);
     }
+
     public void Update()
     {
-        CurrentEnemy = queueScript.GetCurrentQueueElement();
+        //working with slime
+        CurrentEnemy = queueScript.GetCurrentQueueElement(0);
         if (CurrentEnemy != null && !isEnemyOnField)
         {
-            //instantiate from resources
-            var instance = Instantiate(SlimePrefab) as GameObject;
-            
-            instance.transform.SetParent(EnemyCanvas);
+            SpawnAnEnemy(CurrentEnemy);
 
             isEnemyOnField = true;
         }
@@ -63,14 +50,11 @@ public class EnemySpawnHandler : MonoBehaviour
                 {
                     Destroy(child.gameObject, 2f);
                 }
-                
-                //current enemy switch to next one 
-                //QueueScript.NextTile();
             }
         }
-        catch(NullReferenceException e)
+        catch (NullReferenceException)
         {
-            isEnemyOnField=false;
+            isEnemyOnField = false;
         }
     }
 }
