@@ -8,6 +8,7 @@ public class EnemySpawnHandler : MonoBehaviour
     public Transform EnemyCanvas;
     [SerializeField]
     private string CurrentEnemy;
+    private int ElementNumber = 0;
 
 
     private bool isEnemyOnField = false;
@@ -23,7 +24,6 @@ public class EnemySpawnHandler : MonoBehaviour
     }
     public void SpawnAnEnemy(string EnemyName)
     {
-        //string EnemyDir = @"Assets/Resources/Enemies/Slime.prefab/";
 
         try
         {
@@ -40,7 +40,8 @@ public class EnemySpawnHandler : MonoBehaviour
     public void Update()
     {
         //working with slime
-        CurrentEnemy = queueScript.GetCurrentQueueElement(0);
+        try { CurrentEnemy = queueScript.GetCurrentQueueElement(ElementNumber); }
+        catch (ArgumentException) { Debug.Log("No such enemy found"); }
         if (CurrentEnemy != null && !isEnemyOnField)
         {
             SpawnAnEnemy(CurrentEnemy);
@@ -60,6 +61,8 @@ public class EnemySpawnHandler : MonoBehaviour
         catch (NullReferenceException)
         {
             isEnemyOnField = false;
+            queueScript.RemoveTileFromList(ElementNumber); 
+            ElementNumber++;
         }
     }
 }

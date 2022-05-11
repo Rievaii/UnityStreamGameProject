@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,7 +24,7 @@ public class QueueScript : MonoBehaviour
         TileNames = Directory.GetFiles(TileNamesPath);
         
         AddEnemyToQueue("Slime");
-        AddEnemyToQueue("Goblin", 2);
+        //non-correctly counted list cause of that?
         CurrentEnemy = ListElements[0].transform.name;
     }
     private void AddEnemyToQueue(string EnemyName, int Times)
@@ -46,13 +47,14 @@ public class QueueScript : MonoBehaviour
                 {
                     GameObject ListElement = Instantiate(ListElements[i]);
                     ListElement.transform.SetParent(ContentContainer.transform, false);
+                    ListElement.name = i.ToString();
                 }
 
             }
         }
-        catch
+        catch(ArgumentException)
         {
-            Debug.Log("No EnemyName and times amount specified");
+            Debug.Log("No such enemy found");
         }
     }
 
@@ -73,13 +75,14 @@ public class QueueScript : MonoBehaviour
                 {
                     GameObject ListElement = Instantiate(ListElements[i]);
                     ListElement.transform.SetParent(ContentContainer.transform, false);
+                    ListElement.name = i.ToString();
                 }
 
             }
         }
-        catch
+        catch(ArgumentException)
         {
-            Debug.Log("No EnemyName specified");
+            Debug.Log("No such enemy found");
         }
     }
     public string GetCurrentQueueElement(int ElementNumber)
@@ -93,5 +96,21 @@ public class QueueScript : MonoBehaviour
             Debug.Log("List of enemies is null");
         }
         return null;
+    }
+    public bool isNull()
+    {
+        if(ContentContainer.transform.childCount > 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public void RemoveTileFromList(int TileToDelete)
+    {
+        ListElements.RemoveAt(TileToDelete);
+        Destroy(GameObject.Find(TileToDelete.ToString()));
     }
 }
