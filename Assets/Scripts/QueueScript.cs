@@ -10,8 +10,6 @@ public class QueueScript : MonoBehaviour
     private GameObject ContentContainer;
     [SerializeField]
     private int MaxElements = 3;
-    [SerializeField]
-    private string CurrentEnemy;
     private string PrefabDir = @"EnemyTiles\";
 
 
@@ -23,9 +21,8 @@ public class QueueScript : MonoBehaviour
         string TileNamesPath = @"Assets/Resources/EnemyTiles/";
         TileNames = Directory.GetFiles(TileNamesPath);
         
-        AddEnemyToQueue("Slime");
-        //non-correctly counted list cause of that?
-        CurrentEnemy = ListElements[0].transform.name;
+        AddEnemyToQueue("Slime", 3);
+        
     }
     private void AddEnemyToQueue(string EnemyName, int Times)
     {
@@ -91,7 +88,7 @@ public class QueueScript : MonoBehaviour
         {
             return ListElements[ElementNumber].transform.name;
         }
-        catch
+        catch(ArgumentOutOfRangeException)
         {
             Debug.Log("List of enemies is null");
         }
@@ -110,7 +107,25 @@ public class QueueScript : MonoBehaviour
     }
     public void RemoveTileFromList(int TileToDelete)
     {
-        ListElements.RemoveAt(TileToDelete);
-        Destroy(GameObject.Find(TileToDelete.ToString()));
+        try
+        {
+            if (ListElements.Count > 0)
+            {
+                ListElements.RemoveAt(TileToDelete);
+                Destroy(GameObject.Find(TileToDelete.ToString()));
+            }
+            else
+            {
+                //Debug.Log("TileList in null, no tiles to delete");
+                return;
+            }
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            for (int r = 0; r < ListElements.Count(); r++){
+                //Debug.Log(ListElements[r]);
+            }
+            //Debug.Log("No Tiles to delete");
+        }
     }
 }

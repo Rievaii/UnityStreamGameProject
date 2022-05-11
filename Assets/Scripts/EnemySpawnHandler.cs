@@ -15,7 +15,6 @@ public class EnemySpawnHandler : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(CurrentEnemy);
         foreach (Transform child in EnemyCanvas.transform)
         {
             Destroy(child.gameObject);
@@ -27,9 +26,17 @@ public class EnemySpawnHandler : MonoBehaviour
 
         try
         {
-            var instance = Instantiate(Resources.Load<GameObject>(CurrentEnemy)) as GameObject;
+            if (CurrentEnemy != null)
+            {
 
-            instance.transform.SetParent(EnemyCanvas);
+                var instance = Instantiate(Resources.Load<GameObject>(CurrentEnemy)) as GameObject;
+
+                instance.transform.SetParent(EnemyCanvas);
+            }
+            else
+            {
+                Debug.Log("'CurrentEnemy' is null") ;
+            }
         }
         catch (NullReferenceException)
         {
@@ -61,7 +68,10 @@ public class EnemySpawnHandler : MonoBehaviour
         catch (NullReferenceException)
         {
             isEnemyOnField = false;
+            Debug.Log("Element Number "+ElementNumber);
             queueScript.RemoveTileFromList(ElementNumber); 
+            //stop if list is null
+            //does not see the last element in tilelist(may be its appears with problems)
             ElementNumber++;
         }
     }
