@@ -63,8 +63,7 @@ public class EnemySpawnHandler : MonoBehaviour
                 {
                     Destroy(child.gameObject, 2f);
                 }
-                //isEnemyOnField = false;
-                Debug.Log("enemy is dead");
+                
                 //current enemy switch to next one 
                 //QueueScript.NextTile();
             }

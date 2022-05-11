@@ -23,10 +23,9 @@ public class QueueScript : MonoBehaviour
         TileNames = Directory.GetFiles(TileNamesPath);
         
         AddEnemyToQueue("Slime");
-        AddEnemyToQueue("Slime", 7);
+        AddEnemyToQueue("Goblin", 2);
         CurrentEnemy = ListElements[0].transform.name;
     }
-
     private void AddEnemyToQueue(string EnemyName, int Times)
     {
         try
@@ -88,6 +87,18 @@ public class QueueScript : MonoBehaviour
         try
         {
             return ListElements[0].transform.name;
+        }
+        catch
+        {
+            Debug.Log("List of enemies is null");
+        }
+        return null;
+    }
+    public string GetExactElement(int ElementNumber)
+    {
+        try
+        {
+            return ListElements[ElementNumber].transform.name;
         }
         catch
         {
