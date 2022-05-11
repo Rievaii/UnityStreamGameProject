@@ -14,7 +14,7 @@ public class EnemySpawnHandler : MonoBehaviour
 
     private void Start()
     {
-
+        Debug.Log(CurrentEnemy);
         foreach (Transform child in EnemyCanvas.transform)
         {
             Destroy(child.gameObject);
@@ -23,13 +23,18 @@ public class EnemySpawnHandler : MonoBehaviour
     }
     public void SpawnAnEnemy(string EnemyName)
     {
-        //string TileNamesPath = @"Assets/Resources/EnemyTiles/";
-        string EnemyDir = @"Assets/Resources/Enemies/Slime.prefab/";
-        //instantiate from resources
-        var instance = Instantiate(Resources.Load<GameObject>("Slime 1")) as GameObject;
-        
+        //string EnemyDir = @"Assets/Resources/Enemies/Slime.prefab/";
 
-        instance.transform.SetParent(EnemyCanvas);
+        try
+        {
+            var instance = Instantiate(Resources.Load<GameObject>(CurrentEnemy)) as GameObject;
+
+            instance.transform.SetParent(EnemyCanvas);
+        }
+        catch (NullReferenceException)
+        {
+            Debug.Log("No such enemy found");
+        }
     }
 
     public void Update()
