@@ -10,7 +10,7 @@ public class EnemySpawnHandler : MonoBehaviour
     private string CurrentEnemy;
     private int ElementNumber = 0;
 
-
+    
     private bool isEnemyOnField = false;
 
     private void Start()
@@ -48,7 +48,7 @@ public class EnemySpawnHandler : MonoBehaviour
     {
         //working with slime
         try { CurrentEnemy = queueScript.GetCurrentQueueElement(ElementNumber); }
-        catch (ArgumentException) { Debug.Log("No such enemy found"); }
+        catch (ArgumentException) { Debug.Log("Unable to get QueueElement"); }
         if (CurrentEnemy != null && !isEnemyOnField)
         {
             SpawnAnEnemy(CurrentEnemy);
@@ -67,12 +67,12 @@ public class EnemySpawnHandler : MonoBehaviour
         }
         catch (NullReferenceException)
         {
-            isEnemyOnField = false;
-            Debug.Log("Element Number "+ElementNumber);
-            queueScript.RemoveTileFromList(ElementNumber); 
+            queueScript.RemoveTileFromList(ElementNumber);
+            Debug.Log("Element Number " + ElementNumber);
             //stop if list is null
             //does not see the last element in tilelist(may be its appears with problems)
             ElementNumber++;
+            isEnemyOnField = false;
         }
     }
 }
