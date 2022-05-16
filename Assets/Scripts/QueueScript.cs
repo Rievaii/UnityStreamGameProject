@@ -21,8 +21,8 @@ public class QueueScript : MonoBehaviour
         string TileNamesPath = @"Assets/Resources/EnemyTiles/";
         TileNames = Directory.GetFiles(TileNamesPath);
         
-        AddEnemyToQueue("Slime", 3);
-        
+        AddEnemyToQueue("Slime");
+        AddEnemyToQueue("Bat",2);        
     }
     private void AddEnemyToQueue(string EnemyName, int Times)
     {
@@ -94,17 +94,6 @@ public class QueueScript : MonoBehaviour
         }
         return null;
     }
-    public bool isNull()
-    {
-        if(ContentContainer.transform.childCount > 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
     public void RemoveTileFromList(int TileToDelete)
     {
         try
@@ -116,16 +105,18 @@ public class QueueScript : MonoBehaviour
             }
             else
             {
-                //Debug.Log("TileList in null, no tiles to delete");
+                Debug.Log("RemoveTileFromList() - TileList in null, no tiles to delete");
                 return;
             }
         }
         catch (ArgumentOutOfRangeException)
         {
-            for (int r = 0; r < ListElements.Count(); r++){
-                //Debug.Log(ListElements[r]);
-            }
+            Debug.Log(ListElementsCount());
             //Debug.Log("No Tiles to delete");
         }
+    }
+    public int ListElementsCount()
+    {
+        return ListElements.Count();
     }
 }

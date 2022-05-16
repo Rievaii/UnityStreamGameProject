@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Bat : Enemy
+public class Slime : Enemy
 {
     public Animator animator;
-    
+
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -14,7 +14,7 @@ public class Bat : Enemy
         if (GetEnemyUnderAttack())
         {
             animator.SetBool("isUnderAttack", true);
-            animator.Play("Bat_Hit");
+            animator.Play("SpikedSlime_Hit");
         }
         if (GetIsDead())
         {
@@ -23,7 +23,8 @@ public class Bat : Enemy
         if (!GetEnemyUnderAttack())
         {
             animator.SetBool("isUnderAttack", false);
-            animator.Play("Bat_Idle");
+            animator.Play("SpikedSlime_Idle");
         }
     }
 }
+

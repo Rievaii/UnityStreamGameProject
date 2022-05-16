@@ -8,10 +8,13 @@ public class EnemySpawnHandler : MonoBehaviour
     public Transform EnemyCanvas;
     [SerializeField]
     private string CurrentEnemy;
-    private int ElementNumber = 0;
 
-    
+
+
+    private int ElementNumber = 0;
+    private bool ElementNumberIncremented = false;
     private bool isEnemyOnField = false;
+
 
     private void Start()
     {
@@ -20,6 +23,7 @@ public class EnemySpawnHandler : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        Debug.Log("Element Number " + ElementNumber);
     }
     public void SpawnAnEnemy(string EnemyName)
     {
@@ -35,7 +39,7 @@ public class EnemySpawnHandler : MonoBehaviour
             }
             else
             {
-                Debug.Log("'CurrentEnemy' is null") ;
+                Debug.Log("'CurrentEnemy' is null");
             }
         }
         catch (NullReferenceException)
@@ -46,13 +50,14 @@ public class EnemySpawnHandler : MonoBehaviour
 
     public void Update()
     {
-        //working with slime
+
         try { CurrentEnemy = queueScript.GetCurrentQueueElement(ElementNumber); }
         catch (ArgumentException) { Debug.Log("Unable to get QueueElement"); }
+
+
         if (CurrentEnemy != null && !isEnemyOnField)
         {
             SpawnAnEnemy(CurrentEnemy);
-
             isEnemyOnField = true;
         }
         try
@@ -63,15 +68,24 @@ public class EnemySpawnHandler : MonoBehaviour
                 {
                     Destroy(child.gameObject, 2f);
                 }
+
             }
         }
         catch (NullReferenceException)
         {
+            Debug.Log("Old Element Number remooved " + ElementNumber + " in queue script "+ queueScript.GetCurrentQueueElement(ElementNumber));
             queueScript.RemoveTileFromList(ElementNumber);
-            Debug.Log("Element Number " + ElementNumber);
-            //stop if list is null
-            //does not see the last element in tilelist(may be its appears with problems)
-            ElementNumber++;
+            if(queueScript.ListElementsCount() == 0)
+            {
+                Debug.Log("No more tiles left in ListElements");
+            }
+            else
+            {
+                ElementNumber++;
+            }
+            
+
+            Debug.Log("New/Current Element Number " + ElementNumber + " in queue script " + queueScript.GetCurrentQueueElement(ElementNumber));
             isEnemyOnField = false;
         }
     }
