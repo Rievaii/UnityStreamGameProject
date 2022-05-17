@@ -14,16 +14,14 @@ public class Slime : Enemy
         if (GetEnemyUnderAttack())
         {
             animator.SetBool("isUnderAttack", true);
-            animator.Play("SpikedSlime_Hit");
         }
         if (GetIsDead())
         {
-            animator.SetTrigger("Death");
+            animator.SetBool("isDead",true);
         }
         if (!GetEnemyUnderAttack())
         {
             animator.SetBool("isUnderAttack", false);
-            animator.Play("SpikedSlime_Idle");
         }
     }
 }
