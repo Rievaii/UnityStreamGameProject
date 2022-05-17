@@ -19,27 +19,14 @@ public class QueueScript : MonoBehaviour
     {
         string TileNamesPath = @"Assets/Resources/EnemyTiles/";
         TileNames = Directory.GetFiles(TileNamesPath);
-        for (int u = 0; u < 3; u++)
-        {
-            Debug.Log(TileNames[u]);
-        }
+     
+        AddEnemyToQueue("Bat", 2);
+        AddEnemyToQueue("Slime",1);
 
-        AddEnemyToQueue("Bat");
-        AddEnemyToQueue("Slime");
-        AddEnemyToQueue("Bat");
         DrawElements();
 
     }
-    //Draws elements for all AddEnemyQueue
-    private void DrawElements()
-    {
-        for (int l = 0; l < ListElementsCount(); l++)
-        {
-            GameObject ListElement = Instantiate(ListElements[l]);
-            ListElement.transform.SetParent(ContentContainer.transform, false);
-            ListElement.name = l.ToString();
-        }
-    }
+
     private void AddEnemyToQueue(string EnemyName, int Times)
     {
         foreach (Transform child in ContentContainer.transform)
@@ -68,9 +55,16 @@ public class QueueScript : MonoBehaviour
 
         if (MatchInList != null)
         {
-
             ListElements.Add(Resources.Load<GameObject>(TilePrefabDir + EnemyName));
-            //now in draw function
+        }
+    }
+    private void DrawElements()
+    {
+        for (int l = 0; l < MaxElements-1; l++)
+        {
+            GameObject ListElement = Instantiate(ListElements[l]);
+            ListElement.transform.SetParent(ContentContainer.transform, false);
+            ListElement.name = l.ToString();
         }
     }
     public string GetCurrentQueueElement(int ElementNumber)
@@ -85,15 +79,14 @@ public class QueueScript : MonoBehaviour
         }
         return null;
     }
-    public void RemoveTileFromList()
+    public void RemoveTileFromList(int ElementNumber)
     {
         try
         {
             if (ListElements.Count > 0)
             {
-                ListElements.RemoveAt(0);
+                ListElements.RemoveAt(ElementNumber);
                 Destroy(GetComponent<Transform>().GetChild(0).gameObject);
-
             }
             else
             {
@@ -104,11 +97,11 @@ public class QueueScript : MonoBehaviour
         catch (ArgumentOutOfRangeException)
         {
             Debug.Log(ListElementsCount());
-            //Debug.Log("No Tiles to delete");
         }
     }
     public int ListElementsCount()
     {
         return ListElements.Count();
     }
+    
 }

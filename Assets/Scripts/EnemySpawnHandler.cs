@@ -49,15 +49,23 @@ public class EnemySpawnHandler : MonoBehaviour
     public void NextEnemy()
     {
         Debug.Log("Old Element Number remooved " + ElementNumber + " in queue script " + queueScript.GetCurrentQueueElement(ElementNumber));
-        queueScript.RemoveTileFromList();
-
+        queueScript.RemoveTileFromList(ElementNumber);
+        /*
+         * ElementNumber = 0; deletes[0] tile 
+         * ElementNumber = 1; deletes[1] with name 2 becaues 0 has already gone
+         * ElementNumber = 3; deletes unexisting tile and causes an error
+         * 
+         * it is fixed for deleting tiles by pointing directly to child component 
+         * but not fixed with spawning mobs
+         * 
+         */
         if (queueScript.ListElementsCount() == 0)
         {
             Debug.Log("No more tiles left in ListElements");
         }
         else if (ElementNumber < queueScript.ListElementsCount())
         {
-            ElementNumber++;
+            
         }
         isEnemyOnField = false;
         Debug.Log("New/Current Element Number " + ElementNumber + " in queue script " + queueScript.GetCurrentQueueElement(ElementNumber));
@@ -66,7 +74,7 @@ public class EnemySpawnHandler : MonoBehaviour
 
     public void Update()
     {
-
+        
         try { CurrentEnemy = queueScript.GetCurrentQueueElement(ElementNumber); }
         catch (ArgumentException) { Debug.Log("Unable to get QueueElement"); }
 
@@ -84,14 +92,11 @@ public class EnemySpawnHandler : MonoBehaviour
                 {
                     Destroy(child.gameObject, 2f);
                 }
-                NextEnemyTime = true;
-                if (NextEnemyTime) { NextEnemy(); NextEnemyTime = false; }
-                
             }
         }
         catch (NullReferenceException)
         {
-            Debug.Log("No enemies Left");
+            NextEnemy();
         }
     }
 }
