@@ -8,6 +8,7 @@ public class EnemySpawnHandler : MonoBehaviour
     public Transform EnemyCanvas;
     [SerializeField]
     private string CurrentEnemy;
+    private bool NextEnemyTime;
 
 
 
@@ -26,7 +27,6 @@ public class EnemySpawnHandler : MonoBehaviour
     }
     public void SpawnAnEnemy(string EnemyName)
     {
-
         try
         {
             if (CurrentEnemy != null)
@@ -45,6 +45,23 @@ public class EnemySpawnHandler : MonoBehaviour
         {
             Debug.Log("No such enemy found");
         }
+    }
+    public void NextEnemy()
+    {
+        Debug.Log("Old Element Number remooved " + ElementNumber + " in queue script " + queueScript.GetCurrentQueueElement(ElementNumber));
+        queueScript.RemoveTileFromList();
+
+        if (queueScript.ListElementsCount() == 0)
+        {
+            Debug.Log("No more tiles left in ListElements");
+        }
+        else if (ElementNumber < queueScript.ListElementsCount())
+        {
+            ElementNumber++;
+        }
+        isEnemyOnField = false;
+        Debug.Log("New/Current Element Number " + ElementNumber + " in queue script " + queueScript.GetCurrentQueueElement(ElementNumber));
+        
     }
 
     public void Update()
@@ -67,24 +84,14 @@ public class EnemySpawnHandler : MonoBehaviour
                 {
                     Destroy(child.gameObject, 2f);
                 }
-
+                NextEnemyTime = true;
+                if (NextEnemyTime) { NextEnemy(); NextEnemyTime = false; }
+                
             }
         }
         catch (NullReferenceException)
         {
-            Debug.Log("Old Element Number remooved " + ElementNumber + " in queue script "+ queueScript.GetCurrentQueueElement(ElementNumber));
-            queueScript.RemoveTileFromList();
-            if(queueScript.ListElementsCount() == 0)
-            {
-                Debug.Log("No more tiles left in ListElements");
-            }
-            else if(ElementNumber < queueScript.ListElementsCount())
-            {
-                ElementNumber++;
-            }
-            
-            Debug.Log("New/Current Element Number " + ElementNumber + " in queue script " + queueScript.GetCurrentQueueElement(ElementNumber));
-            isEnemyOnField = false;
+            Debug.Log("No enemies Left");
         }
     }
 }
