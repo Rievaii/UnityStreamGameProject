@@ -18,7 +18,7 @@ public class PhaseScript : MonoBehaviour
     public int AttackCounter;
     public int DefenceCounter;
 
-    private void Start()
+    public void Start()
     {
         PhaseAnimator = GetComponent<Animator>();
         AttackPhase = true;
@@ -26,7 +26,7 @@ public class PhaseScript : MonoBehaviour
 
     }
 
-    private void Update()
+    public void Update()
     {
         if(AttackCounter == 5 && GetGameAttackPhase())
         {

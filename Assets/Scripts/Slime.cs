@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bat : Enemy
 {
     public Animator animator;
+    
 
     private int DiceRoll()
     {
@@ -10,11 +12,11 @@ public class Bat : Enemy
         return Damage;
     }
 
-    private void Start()
+    public void Start()
     {
         animator = GetComponentInChildren<Animator>();
     }
-
+    
     private void Update()
     {
 
@@ -30,10 +32,9 @@ public class Bat : Enemy
         {
             animator.SetBool("isUnderAttack", false);
         }
-        if (!phaseScript.GetGameAttackPhase())
+        if (!GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase())
         {
-            JumpAttack(DiceRoll());
-            animator.SetBool("isAttacking",true);
+            
         }
     }
 }

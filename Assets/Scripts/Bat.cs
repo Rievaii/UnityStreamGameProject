@@ -1,18 +1,20 @@
+using System.Collections;
 using UnityEngine;
 
 public class Slime : Enemy
 {
     public Animator animator;
+
     private int DiceRoll()
     {
         int Damage = Random.Range(2, 4);
         return Damage;
     }
-    private void Start()
+    public void Start()
     {
         animator = GetComponentInChildren<Animator>();
     }
-
+   
     private void Update()
     {
         if (GetEnemyUnderAttack())
@@ -21,16 +23,16 @@ public class Slime : Enemy
         }
         if (GetIsDead())
         {
-            animator.SetBool("isDead",true);
+            animator.SetBool("isDead", true);
         }
         if (!GetEnemyUnderAttack())
         {
             animator.SetBool("isUnderAttack", false);
         }
-        if (!phaseScript.GetGameAttackPhase())
+        if (!GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase())
         {
-            JumpAttack(DiceRoll());
-            animator.SetBool("isAttacking", true);
+
+              
         }
     }
 }
