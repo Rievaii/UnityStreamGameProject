@@ -379,6 +379,7 @@ MonoBehaviour:
   enemycanvas: {fileID: 1075905091183647808}
   enemyhealthbar: {fileID: 1075905091244520233}
   mainheroscript: {fileID: 6436473748789674122, guid: a22f2363c4f9e3941a0e7640609599bc, type: 3}
+  MainHeroPosition: {fileID: 6436473748789674123, guid: a22f2363c4f9e3941a0e7640609599bc, type: 3}
   isDead: 0
   animator: {fileID: 1075905089764637472}
 --- !u!1 &1075905091244520215

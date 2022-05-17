@@ -3,7 +3,11 @@ using UnityEngine;
 public class Slime : Enemy
 {
     public Animator animator;
-
+    private int DiceRoll()
+    {
+        int Damage = Random.Range(2, 4);
+        return Damage;
+    }
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -22,6 +26,11 @@ public class Slime : Enemy
         if (!GetEnemyUnderAttack())
         {
             animator.SetBool("isUnderAttack", false);
+        }
+        if (!phaseScript.GetGameAttackPhase())
+        {
+            JumpAttack(DiceRoll());
+            animator.SetBool("isAttacking", true);
         }
     }
 }

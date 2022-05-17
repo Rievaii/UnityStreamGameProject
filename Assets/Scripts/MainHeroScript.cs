@@ -6,9 +6,11 @@ public class MainHeroScript : MonoBehaviour
 {
     public Transform EnemyPosition;
 
-    public PhaseScript GamePhase;
+    public PhaseScript phaseScript;
     public GameObject MainHero;
     public Animator animator;
+
+    private HealthBar MainHeroHealthBar;
     private bool isAttacking = false;
 
 
@@ -51,17 +53,22 @@ public class MainHeroScript : MonoBehaviour
         try { GameObject.FindGameObjectWithTag("EnemyUnit").GetComponent<Enemy>().SetEnemyUnderAttack(false); }
         catch { Debug.Log("Unable to find clone script"); }
     }
-
+    public void TakeDamage(int damage)
+    {
+        MainHeroHealthBar.TakeDamage(damage);
+    }
+   
     public void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") 
+        && !isAttacking
+        && phaseScript.GetGameAttackPhase())
         {
             StartCoroutine(AttackHandler());
             animator.SetBool("isAttacking", false);
             isAttacking = false;
+            phaseScript.AttackCounter++;
         }
-        /*&& !isAttacking
-        && enemyscript.GetIsDead()
-        && !GamePhase.GetGameAttackPhase())*/
+        
     }
 }

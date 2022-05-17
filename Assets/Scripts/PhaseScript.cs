@@ -11,11 +11,16 @@ public class PhaseScript : MonoBehaviour
     private GameObject AttackPhaseImage;
     [SerializeField]
     private GameObject DefencePhaseImage;
+    private MainHeroScript mainHeroScript;
+    private Enemy enemyScript;
+
+
+    public int AttackCounter;
+    public int DefenceCounter;
 
     private void Start()
     {
         PhaseAnimator = GetComponent<Animator>();
-        //Fight Starts with attack phase
         AttackPhase = true;
         DefencePhase = false;
 
@@ -23,6 +28,15 @@ public class PhaseScript : MonoBehaviour
 
     private void Update()
     {
+        if(AttackCounter == 5 && GetGameAttackPhase())
+        {
+            SetGameDefencePhase();
+        }
+        if(DefenceCounter == 5 && !GetGameAttackPhase())
+        {
+            SetGameAttackPhase();
+        }
+
         if (AttackPhase)
         {
             DefencePhase = false;

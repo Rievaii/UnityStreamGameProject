@@ -3,7 +3,13 @@ using UnityEngine;
 public class Bat : Enemy
 {
     public Animator animator;
-    
+
+    private int DiceRoll()
+    {
+        int Damage = Random.Range(2, 4);
+        return Damage;
+    }
+
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -11,6 +17,7 @@ public class Bat : Enemy
 
     private void Update()
     {
+
         if (GetEnemyUnderAttack())
         {
             animator.SetBool("isUnderAttack", true);
@@ -22,6 +29,11 @@ public class Bat : Enemy
         if (!GetEnemyUnderAttack())
         {
             animator.SetBool("isUnderAttack", false);
+        }
+        if (!phaseScript.GetGameAttackPhase())
+        {
+            JumpAttack(DiceRoll());
+            animator.SetBool("isAttacking",true);
         }
     }
 }

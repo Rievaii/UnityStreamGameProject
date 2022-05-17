@@ -19,9 +19,8 @@ public class QueueScript : MonoBehaviour
     {
         string TileNamesPath = @"Assets/Resources/EnemyTiles/";
         TileNames = Directory.GetFiles(TileNamesPath);
-     
-        AddEnemyToQueue("Bat", 2);
-        AddEnemyToQueue("Slime",1);
+
+        AddEnemyToQueue("Slime",2);
 
         DrawElements();
 
@@ -60,7 +59,8 @@ public class QueueScript : MonoBehaviour
     }
     private void DrawElements()
     {
-        for (int l = 0; l < MaxElements-1; l++)
+        //change to MaxElements-1
+        for (int l = 0; l < ListElementsCount(); l++)
         {
             GameObject ListElement = Instantiate(ListElements[l]);
             ListElement.transform.SetParent(ContentContainer.transform, false);
