@@ -2947,7 +2947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ContentContainer: {fileID: 2017070655}
-  MaxElements: 5
+  MaxElements: 4
   ListElements: []
   TileNames: []
 --- !u!114 &2017070662

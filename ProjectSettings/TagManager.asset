@@ -9,6 +9,7 @@ TagManager:
   - EnemyUnit
   - Enemy
   - Slime
+  - Tile
   layers:
   - Default
   - TransparentFX

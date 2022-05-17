@@ -10,7 +10,7 @@ public class QueueScript : MonoBehaviour
     private GameObject ContentContainer;
     [SerializeField]
     private int MaxElements = 3;
-    private string PrefabDir = @"EnemyTiles\";
+    private string TilePrefabDir = @"EnemyTiles\";
 
 
     public List<GameObject> ListElements = new List<GameObject>();
@@ -20,9 +20,13 @@ public class QueueScript : MonoBehaviour
     {
         string TileNamesPath = @"Assets/Resources/EnemyTiles/";
         TileNames = Directory.GetFiles(TileNamesPath);
-        
+        for (int u = 0; u < 3; u++)
+        {
+            Debug.Log(TileNames[u]);
+        }
+
+        AddEnemyToQueue("Bat",3);
         AddEnemyToQueue("Slime");
-        AddEnemyToQueue("Bat",2);        
     }
     private void AddEnemyToQueue(string EnemyName, int Times)
     {
@@ -38,18 +42,18 @@ public class QueueScript : MonoBehaviour
             {
                 for (int j = 0; j < Times; j++)
                 {
-                    ListElements.Add(Resources.Load<GameObject>(PrefabDir + EnemyName));
+                    ListElements.Add(Resources.Load<GameObject>(TilePrefabDir + EnemyName));
                 }
-                for (int i = 0; i < MaxElements; i++)
+                for (int e = 0; e < MaxElements; e++)
                 {
-                    GameObject ListElement = Instantiate(ListElements[i]);
+                    GameObject ListElement = Instantiate(ListElements[e]);
                     ListElement.transform.SetParent(ContentContainer.transform, false);
-                    ListElement.name = i.ToString();
+                    ListElement.name = e.ToString();
                 }
 
             }
         }
-        catch(ArgumentException)
+        catch (ArgumentException)
         {
             Debug.Log("No such enemy found");
         }
@@ -57,30 +61,31 @@ public class QueueScript : MonoBehaviour
 
     private void AddEnemyToQueue(string EnemyName)
     {
-        try
+        foreach (Transform child in ContentContainer.transform)
         {
-            foreach (Transform child in ContentContainer.transform)
-            {
-                Destroy(child.gameObject);
-            }
+            Destroy(child.gameObject);
+        }
 
-            var MatchInList = TileNames.Where(item => item.Contains(EnemyName)).FirstOrDefault();
-            if (MatchInList != null)
-            {
-                ListElements.Add(Resources.Load<GameObject>(PrefabDir + EnemyName));
-                for (int i = 0; i < MaxElements; i++)
-                {
-                    GameObject ListElement = Instantiate(ListElements[i]);
-                    ListElement.transform.SetParent(ContentContainer.transform, false);
-                    ListElement.name = i.ToString();
-                }
+        var MatchInList = TileNames.Where(item => item.Contains(EnemyName)).FirstOrDefault();
 
+        if (MatchInList != null)
+        {
+            //instantiate a whole list of gameobjects
+            ListElements.Add(Resources.Load<GameObject>(TilePrefabDir+EnemyName));
+            
+            //problem is here
+            for (int l = 0; l < MaxElements; l++)
+            {
+                GameObject ListElement = Instantiate(ListElements[l]);
+                ListElement.transform.SetParent(ContentContainer.transform, false);
+                ListElement.name = l.ToString();
             }
         }
-        catch(ArgumentException)
+
+        /*catch(ArgumentException)
         {
             Debug.Log("No such enemy found");
-        }
+        }*/
     }
     public string GetCurrentQueueElement(int ElementNumber)
     {
@@ -88,20 +93,23 @@ public class QueueScript : MonoBehaviour
         {
             return ListElements[ElementNumber].transform.name;
         }
-        catch(ArgumentOutOfRangeException)
+        catch (ArgumentOutOfRangeException)
         {
             Debug.Log("List of enemies is null");
         }
         return null;
     }
-    public void RemoveTileFromList(int TileToDelete)
+    public void RemoveTileFromList()
     {
         try
         {
             if (ListElements.Count > 0)
             {
-                ListElements.RemoveAt(TileToDelete);
-                Destroy(GameObject.Find(TileToDelete.ToString()));
+                //delete function does not work properly
+                //Tile to delete
+                ListElements.RemoveAt(0);
+                //Destroy(TileContainer.chuld[0]);
+                
             }
             else
             {

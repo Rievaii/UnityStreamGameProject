@@ -12,7 +12,6 @@ public class EnemySpawnHandler : MonoBehaviour
 
 
     private int ElementNumber = 0;
-    private bool ElementNumberIncremented = false;
     private bool isEnemyOnField = false;
 
 
@@ -74,17 +73,16 @@ public class EnemySpawnHandler : MonoBehaviour
         catch (NullReferenceException)
         {
             Debug.Log("Old Element Number remooved " + ElementNumber + " in queue script "+ queueScript.GetCurrentQueueElement(ElementNumber));
-            queueScript.RemoveTileFromList(ElementNumber);
+            queueScript.RemoveTileFromList();
             if(queueScript.ListElementsCount() == 0)
             {
                 Debug.Log("No more tiles left in ListElements");
             }
-            else
+            else if(ElementNumber < queueScript.ListElementsCount())
             {
                 ElementNumber++;
             }
             
-
             Debug.Log("New/Current Element Number " + ElementNumber + " in queue script " + queueScript.GetCurrentQueueElement(ElementNumber));
             isEnemyOnField = false;
         }
