@@ -22,8 +22,6 @@ public class EnemySpawnHandler : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-
-        Debug.Log("Element Number " + ElementNumber);
     }
     public void SpawnAnEnemy(string EnemyName)
     {
