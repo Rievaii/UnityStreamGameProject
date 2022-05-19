@@ -31,8 +31,14 @@ public class Slime : Enemy
         }
         if (!GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase())
         {
-
+            animator.SetBool("isAttacking", true);
+            JumpAttack(DiceRoll(2, 4, 3));
+            animator.SetBool("isAttacking", false);
               
+        }
+        if(GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase())
+        {
+            Debug.Log("GamePhase = Attack")
         }
     }
 }

@@ -4,13 +4,6 @@ using UnityEngine;
 public class Bat : Enemy
 {
     public Animator animator;
-    
-
-    private int DiceRoll()
-    {
-        int Damage = Random.Range(2, 4);
-        return Damage;
-    }
 
     public void Start()
     {
@@ -34,7 +27,11 @@ public class Bat : Enemy
         }
         if (!GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase())
         {
+            animator.SetBool("isAttacking", true);
+            JumpAttack(DiceRoll(1,3,2));
+            animator.SetBool("isAttacking", false);
             
+
         }
     }
 }

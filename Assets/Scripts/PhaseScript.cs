@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PhaseScript : MonoBehaviour
 {
@@ -76,13 +77,15 @@ public class PhaseScript : MonoBehaviour
         }
         return false;
     }
-    public void SetGameAttackPhase()
+    public IEnuminator SetGameAttackPhase()
     {
+        yield return WaitForSeconds(2f);
         AttackPhase = true;
         DefencePhase = false;
     }
-    public void SetGameDefencePhase()
+    public IEnuminator SetGameDefencePhase()
     {
+        yield return WaitForSeconds(2f);
         DefencePhase = true;
         AttackPhase = false;
     }

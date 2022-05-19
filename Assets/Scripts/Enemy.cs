@@ -48,14 +48,27 @@ public class Enemy : MonoBehaviour
             return isDead;
         }
     }
-    /* monsterattackhandler
-      public IEnumerator JumpAttack(int Damage)
+
+    public IEnumerator JumpAttack(int Damage)
     {
-        yield return new WaitForSeconds(2);
-        transform.position = new Vector3(MainHeroPosition.transform.position.x - 1.2f, MainHeroPosition.transform.position.y - 0.9f, MainHeroPosition.transform.position.z);
+        //delay after mainhero script
+        Vector3 DefaultPosition = this.transform.position;
+        this.transform.position = new Vector3(MainHeroPosition.transform.position.x - 1.2f, MainHeroPosition.transform.position.y - 0.9f, MainHeroPosition.transform.position.z);
         yield return new WaitForSeconds(2);
         mainheroscript.TakeDamage(Damage);
         GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().DefenceCounter++;
-    }*/
+        this.tranform.position = DefaultPosition;
+    }
+
+    public int DiceRoll(int MinDamage, int MaxDamage, int CritChance)
+    {
+        int CritChanceAmount = Random.Range(1, 6);
+        if (CritChanceAmount > 3)
+        {
+            MaxDamage *= 2;
+        }
+        int Damage = Random.Range(MinDamage, MaxDamage);
+        return Damage;
+    }
 
 }
