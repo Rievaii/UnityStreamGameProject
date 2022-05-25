@@ -29,13 +29,15 @@ public class PhaseScript : MonoBehaviour
 
     public void Update()
     {
-        if(AttackCounter == 5 && GetGameAttackPhase())
+        if(AttackCounter == 3 && GetGameAttackPhase())
         {
-            SetGameDefencePhase();
+            StartCoroutine(SetGameDefencePhase());
+            AttackCounter = 0;
         }
-        if(DefenceCounter == 5 && !GetGameAttackPhase())
+        if(DefenceCounter == 3 && !GetGameAttackPhase())
         {
-            SetGameAttackPhase();
+            StartCoroutine(SetGameAttackPhase());
+            DefenceCounter = 0;
         }
 
         if (AttackPhase)
@@ -77,15 +79,15 @@ public class PhaseScript : MonoBehaviour
         }
         return false;
     }
-    public IEnuminator SetGameAttackPhase()
+    public IEnumerator SetGameAttackPhase()
     {
-        yield return WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         AttackPhase = true;
         DefencePhase = false;
     }
-    public IEnuminator SetGameDefencePhase()
+    public IEnumerator SetGameDefencePhase()
     {
-        yield return WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         DefencePhase = true;
         AttackPhase = false;
     }

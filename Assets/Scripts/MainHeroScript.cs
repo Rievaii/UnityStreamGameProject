@@ -10,6 +10,7 @@ public class MainHeroScript : MonoBehaviour
     public GameObject MainHero;
     public Animator animator;
 
+    [SerializeField]
     private HealthBar MainHeroHealthBar;
     private bool isAttacking = false;
 
@@ -56,11 +57,12 @@ public class MainHeroScript : MonoBehaviour
     public void TakeDamage(int damage)
     {
         MainHeroHealthBar.TakeDamage(damage);
+        //play takedamage animation
     }
    
     public void Update()
     {
-        if (Input.GetKeyDown("space") 
+        if (Input.GetKeyDown(KeyCode.Space) 
         && !isAttacking
         && phaseScript.GetGameAttackPhase())
         {

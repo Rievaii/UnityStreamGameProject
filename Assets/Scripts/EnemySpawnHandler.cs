@@ -8,7 +8,6 @@ public class EnemySpawnHandler : MonoBehaviour
     public Transform EnemyCanvas;
     [SerializeField]
     private string CurrentEnemy;
-    private bool NextEnemyTime;
 
 
 
@@ -48,15 +47,7 @@ public class EnemySpawnHandler : MonoBehaviour
     {
         Debug.Log("Old Element Number remooved " + ElementNumber + " in queue script " + queueScript.GetCurrentQueueElement(ElementNumber));
         queueScript.RemoveTileFromList(ElementNumber);
-        /*
-         * ElementNumber = 0; deletes[0] tile 
-         * ElementNumber = 1; deletes[1] with name 2 becaues 0 has already gone
-         * ElementNumber = 3; deletes unexisting tile and causes an error
-         * 
-         * it is fixed for deleting tiles by pointing directly to child component 
-         * but not fixed with spawning mobs
-         * 
-         */
+    
         if (queueScript.ListElementsCount() == 0)
         {
             Debug.Log("No more tiles left in ListElements");
