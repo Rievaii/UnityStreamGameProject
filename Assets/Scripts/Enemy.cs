@@ -2,16 +2,16 @@ using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{ 
+{
     public GameObject enemycanvas;
     public EnemyHealthBar enemyhealthbar;
-    public GameObject MainHeroPosition;
-    
-    
+    public GameObject MainHero;
+
     [SerializeField]
     private bool isDead;
     private bool EnemyUnderAttack = false;
-    
+    public bool DamageDealt = false;
+
     public void SetEnemyUnderAttack(bool EnemyUnderAttack, int Damage)
     {
         this.EnemyUnderAttack = EnemyUnderAttack;
@@ -24,13 +24,13 @@ public class Enemy : MonoBehaviour
 
     public bool GetEnemyUnderAttack()
     {
-        return EnemyUnderAttack; 
+        return EnemyUnderAttack;
     }
     public float GetHP()
     {
         return enemyhealthbar.EnemySlider.value;
     }
-    
+
     public bool GetIsDead()
     {
         if (enemyhealthbar.HasNoHP())
@@ -40,19 +40,26 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            isDead=false;   
+            isDead = false;
             return isDead;
         }
     }
 
     public IEnumerator JumpAttack(int Damage)
     {
-        //problem is in this.position
         Vector3 DefaultPosition = this.transform.position;
-        this.transform.position = new Vector3(MainHeroPosition.transform.position.x - 1.2f, MainHeroPosition.transform.position.y - 0.9f, MainHeroPosition.transform.position.z);
-        yield return new WaitForSeconds(1);
+
+        yield return new WaitForSeconds(2);
+        this.transform.position = new Vector3(MainHero.transform.position.x + 1.2f, MainHero.transform.position.y + 0.9f, MainHero.transform.position.z);
+        
         GameObject.FindGameObjectWithTag("MainHero").GetComponent<MainHeroScript>().TakeDamage(Damage);
-        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().DefenceCounter++;
+        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().DefenceHitCounter++;
+
+        yield return new WaitForSeconds(2);
         this.transform.position = DefaultPosition;
+    }
+    public void GetEnemyIsAttacking()
+    {
+        
     }
 }

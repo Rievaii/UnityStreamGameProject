@@ -57,7 +57,8 @@ public class MainHeroScript : MonoBehaviour
     public void TakeDamage(int damage)
     {
         MainHeroHealthBar.TakeDamage(damage);
-        //play takedamage animation
+        //play takedamage and death animation
+        
     }
    
     public void Update()
@@ -69,7 +70,8 @@ public class MainHeroScript : MonoBehaviour
             StartCoroutine(AttackHandler());
             animator.SetBool("isAttacking", false);
             isAttacking = false;
-            phaseScript.AttackCounter++;
+            phaseScript.AttackHitCounter++;
+            Debug.Log(phaseScript.AttackHitCounter);
         }
         
     }

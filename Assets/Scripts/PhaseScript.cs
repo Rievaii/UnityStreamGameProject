@@ -1,5 +1,7 @@
-using UnityEngine;
+using System;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class PhaseScript : MonoBehaviour
 {
@@ -12,34 +14,39 @@ public class PhaseScript : MonoBehaviour
     private GameObject AttackPhaseImage;
     [SerializeField]
     private GameObject DefencePhaseImage;
-    private MainHeroScript mainHeroScript;
-    private Enemy enemyScript;
 
+    public UnityEvent DefencePhaseStarted;
+    public UnityEvent AttackPhaseStarted;
 
-    public int AttackCounter;
-    public int DefenceCounter;
+    public int AttackHitCounter;
+    public int DefenceHitCounter;
 
     public void Start()
     {
         PhaseAnimator = GetComponent<Animator>();
         AttackPhase = true;
         DefencePhase = false;
+        AttackHitCounter = 0;
+        DefenceHitCounter = 0;
 
     }
 
+
     public void Update()
     {
-        if(AttackCounter == 3 && GetGameAttackPhase())
+        if (AttackHitCounter > 2)
         {
             StartCoroutine(SetGameDefencePhase());
-            AttackCounter = 0;
-        }
-        if(DefenceCounter == 3 && !GetGameAttackPhase())
+            AttackHitCounter = 0;
+            AttackPhaseStarted.Invoke();
+            
+        } 
+        if(DefenceHitCounter > 2)
         {
             StartCoroutine(SetGameAttackPhase());
-            DefenceCounter = 0;
+            DefenceHitCounter = 0;
+            DefencePhaseStarted.Invoke();
         }
-
         if (AttackPhase)
         {
             DefencePhase = false;
@@ -48,6 +55,7 @@ public class PhaseScript : MonoBehaviour
             DefencePhaseImage.SetActive(false);
             AttackPhaseImage.SetActive(true);
         }
+
         if (DefencePhase)
         {
             AttackPhase = false;
@@ -56,10 +64,12 @@ public class PhaseScript : MonoBehaviour
             AttackPhaseImage.SetActive(false);
             DefencePhaseImage.SetActive(true);
         }
+
         if (!AttackPhase && !DefencePhase)
         {
             Debug.Log("No game phase choosen!");
         }
+
         if (AttackPhase && DefencePhase)
         {
             Debug.Log("Both game phases are chosen at once!");
@@ -81,9 +91,10 @@ public class PhaseScript : MonoBehaviour
     }
     public IEnumerator SetGameAttackPhase()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         AttackPhase = true;
         DefencePhase = false;
+
     }
     public IEnumerator SetGameDefencePhase()
     {

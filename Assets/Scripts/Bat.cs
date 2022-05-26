@@ -29,17 +29,21 @@ public class Slime : Enemy
         {
             animator.SetBool("isUnderAttack", false);
         }
-        if (!GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase()&& !isAttacking )
+        if (!GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase() && !isAttacking )
         {
+            //copy from slime this method
             isAttacking = true;
             if (isAttacking)
             {
                 animator.SetBool("isAttacking", true);
                 StartCoroutine(JumpAttack(BatDiceRoll(1, 3)));
-                animator.SetBool("isAttacking", false);
-                GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().DefenceCounter++;
                 isAttacking = false;
             }
+        }
+        if (GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase())
+        {
+            animator.SetBool("isAttacking", false);
+            isAttacking = false;
         }
     }
 }

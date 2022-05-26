@@ -30,17 +30,10 @@ public class Bat : Enemy
         {
             animator.SetBool("isUnderAttack", false);
         }
-        if (!GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase() && !isAttacking)
-        {
-            isAttacking = true;
-            if (isAttacking)
-            {
-                animator.SetBool("isAttacking", true);
-                StartCoroutine(JumpAttack(SlimeDiceRoll(1, 3)));
-                animator.SetBool("isAttacking", false);
-                GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().DefenceCounter++;
-                isAttacking = false;
-            }
-        }
+        
+    }
+    public void GetEnemyIsAttacking()
+    {
+
     }
 }

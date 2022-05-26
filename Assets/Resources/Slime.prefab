@@ -549,7 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemycanvas: {fileID: 2809763812560853379}
   enemyhealthbar: {fileID: 2809763812550325994}
-  mainheroscript: {fileID: 6436473748789674122, guid: a22f2363c4f9e3941a0e7640609599bc, type: 3}
-  MainHeroPosition: {fileID: 6436473748789674123, guid: a22f2363c4f9e3941a0e7640609599bc, type: 3}
+  MainHero: {fileID: 6436473748789674123, guid: a22f2363c4f9e3941a0e7640609599bc, type: 3}
   isDead: 0
   animator: {fileID: 2809763810793127651}
+  isAttacking: 0
