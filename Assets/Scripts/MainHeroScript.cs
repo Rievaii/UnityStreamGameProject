@@ -78,6 +78,7 @@ public class MainHeroScript : MonoBehaviour
             else
             {
                 AttackCounter++;
+                Debug.Log(AttackCounter);
             }
             isAttacking = false;
         }

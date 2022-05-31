@@ -27,7 +27,7 @@ public class PhaseScript : MonoBehaviour
         //hits to change phase
         if (PhaseHitCounter > 2)
         {
-            ChangePhase();
+            StartCoroutine(ChangePhase());
         }
     }
     public bool GetGameAttackPhase()
@@ -43,15 +43,18 @@ public class PhaseScript : MonoBehaviour
         return false;
     }
 
-    public void ChangePhase()
+    public IEnumerator ChangePhase()
     {
+
         if (isAttackPhase)
         {
+            yield return new WaitForSeconds(1);
             isAttackPhase = false;
             GamePhaseChanged.Invoke();
         }
         if (!isAttackPhase)
         {
+            yield return new WaitForSeconds(1);
             isAttackPhase = true;
             GamePhaseChanged.Invoke();
         }

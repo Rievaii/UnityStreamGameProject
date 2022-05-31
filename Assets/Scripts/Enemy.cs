@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
         {
 
             HitCounter++;
+            Debug.Log(HitCounter);
         }
         
 
