@@ -13,6 +13,7 @@ public class MainHeroScript : MonoBehaviour
     [SerializeField]
     private HealthBar MainHeroHealthBar;
     private bool isAttacking = false;
+    private int AttackCounter = 0;
 
 
     public void Start()
@@ -69,9 +70,16 @@ public class MainHeroScript : MonoBehaviour
         {
             StartCoroutine(AttackHandler());
             animator.SetBool("isAttacking", false);
+            phaseScript.PhaseCounter(AttackCounter);
+            if (AttackCounter > 2)
+            {
+                AttackCounter = 0;
+            }
+            else
+            {
+                AttackCounter++;
+            }
             isAttacking = false;
-            phaseScript.AttackHitCounter++;
-            Debug.Log(phaseScript.AttackHitCounter);
         }
         
     }

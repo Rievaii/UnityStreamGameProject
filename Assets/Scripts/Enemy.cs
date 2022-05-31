@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     private bool isDead;
     private bool EnemyUnderAttack = false;
     public bool DamageDealt = false;
+    [SerializeField]
+    private int HitCounter = 0; 
 
     public void SetEnemyUnderAttack(bool EnemyUnderAttack, int Damage)
     {
@@ -45,21 +47,29 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public IEnumerator JumpAttack(int Damage)
+    public void JumpAttack()
     {
         Vector3 DefaultPosition = this.transform.position;
 
-        yield return new WaitForSeconds(2);
+        //yield return new WaitForSeconds(2);
         this.transform.position = new Vector3(MainHero.transform.position.x + 1.2f, MainHero.transform.position.y + 0.9f, MainHero.transform.position.z);
         
-        GameObject.FindGameObjectWithTag("MainHero").GetComponent<MainHeroScript>().TakeDamage(Damage);
-        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().DefenceHitCounter++;
+        GameObject.FindGameObjectWithTag("MainHero").GetComponent<MainHeroScript>().TakeDamage(3);
+        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().PhaseCounter(HitCounter);
 
-        yield return new WaitForSeconds(2);
+        if (HitCounter > 2)
+        {
+            HitCounter = 0;
+        }
+        else
+        {
+
+            HitCounter++;
+        }
+        
+
+        //yield return new WaitForSeconds(2);
         this.transform.position = DefaultPosition;
     }
-    public void GetEnemyIsAttacking()
-    {
-        
-    }
+    
 }

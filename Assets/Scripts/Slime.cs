@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bat : Enemy
 {
@@ -9,6 +10,8 @@ public class Bat : Enemy
     public void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GamePhaseChanged.AddListener(JumpAttack);
+        //GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GamePhaseChanged.AddListener(PlayAttackAnimation);
     }
     public int SlimeDiceRoll(int MinDamage, int MaxDamage)
     {
@@ -30,10 +33,11 @@ public class Bat : Enemy
         {
             animator.SetBool("isUnderAttack", false);
         }
-        
-    }
-    public void GetEnemyIsAttacking()
-    {
 
+    }
+    void PlayAttackAnimation()
+    {
+        animator.SetBool("isAttacking", true);
+        //has no stop animation
     }
 }

@@ -6,100 +6,72 @@ using UnityEngine.Events;
 public class PhaseScript : MonoBehaviour
 {
     [SerializeField]
-    private bool AttackPhase = false;
+    private bool isAttackPhase;
     [SerializeField]
-    private bool DefencePhase = false;
-    public Animator PhaseAnimator;
+    private Animator PhaseAnimator;
     [SerializeField]
     private GameObject AttackPhaseImage;
     [SerializeField]
     private GameObject DefencePhaseImage;
 
-    public UnityEvent DefencePhaseStarted;
-    public UnityEvent AttackPhaseStarted;
+    public UnityEvent GamePhaseChanged = new UnityEvent();
 
-    public int AttackHitCounter;
-    public int DefenceHitCounter;
-
-    public void Start()
+    private void Start()
     {
         PhaseAnimator = GetComponent<Animator>();
-        AttackPhase = true;
-        DefencePhase = false;
-        AttackHitCounter = 0;
-        DefenceHitCounter = 0;
-
+        isAttackPhase = true;
     }
 
-
-    public void Update()
+    public void PhaseCounter(int PhaseHitCounter)
     {
-        if (AttackHitCounter > 2)
+        //hits to change phase
+        if (PhaseHitCounter > 2)
         {
-            StartCoroutine(SetGameDefencePhase());
-            AttackHitCounter = 0;
-            AttackPhaseStarted.Invoke();
-            
-        } 
-        if(DefenceHitCounter > 2)
-        {
-            StartCoroutine(SetGameAttackPhase());
-            DefenceHitCounter = 0;
-            DefencePhaseStarted.Invoke();
+            ChangePhase();
         }
-        if (AttackPhase)
+    }
+    public bool GetGameAttackPhase()
+    {
+        if (isAttackPhase)
         {
-            DefencePhase = false;
+            return true;
+        }
+        if (!isAttackPhase)
+        {
+            return false;
+        }
+        return false;
+    }
+
+    public void ChangePhase()
+    {
+        if (isAttackPhase)
+        {
+            isAttackPhase = false;
+            GamePhaseChanged.Invoke();
+        }
+        if (!isAttackPhase)
+        {
+            isAttackPhase = true;
+            GamePhaseChanged.Invoke();
+        }
+    }
+
+    void Update(){
+        if (isAttackPhase)
+        {
             PhaseAnimator.SetBool("AttackPhase", true);
             PhaseAnimator.SetBool("DefencePhase", false);
             DefencePhaseImage.SetActive(false);
             AttackPhaseImage.SetActive(true);
         }
 
-        if (DefencePhase)
+        if (!isAttackPhase)
         {
-            AttackPhase = false;
             PhaseAnimator.SetBool("DefencePhase", true);
             PhaseAnimator.SetBool("AttackPhase", false);
             AttackPhaseImage.SetActive(false);
             DefencePhaseImage.SetActive(true);
         }
-
-        if (!AttackPhase && !DefencePhase)
-        {
-            Debug.Log("No game phase choosen!");
-        }
-
-        if (AttackPhase && DefencePhase)
-        {
-            Debug.Log("Both game phases are chosen at once!");
-            return;
-        }
-    }
-
-    public bool GetGameAttackPhase()
-    {
-        if (AttackPhase)
-        {
-            return true;
-        }
-        else if (DefencePhase)
-        {
-            return false;
-        }
-        return false;
-    }
-    public IEnumerator SetGameAttackPhase()
-    {
-        yield return new WaitForSeconds(2f);
-        AttackPhase = true;
-        DefencePhase = false;
-
-    }
-    public IEnumerator SetGameDefencePhase()
-    {
-        yield return new WaitForSeconds(4f);
-        DefencePhase = true;
-        AttackPhase = false;
     }
 }
