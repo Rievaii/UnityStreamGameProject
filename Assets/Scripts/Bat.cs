@@ -13,7 +13,7 @@ public class Slime : Enemy
     public void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GamePhaseChanged.AddListener(JumpAttack);
+        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().DefencePhaseStarted.AddListener(EnemyJumpAttack);
     }
 
     private void Update()

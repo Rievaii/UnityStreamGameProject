@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private bool isDead;
     private bool EnemyUnderAttack = false;
     public bool DamageDealt = false;
+    private bool isAttacked = false;
     [SerializeField]
     private int HitCounter = 0; 
 
@@ -47,30 +48,34 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void JumpAttack()
+    public void EnemyJumpAttack()
     {
-        Vector3 DefaultPosition = this.transform.position;
-
-        //yield return new WaitForSeconds(2);
-        this.transform.position = new Vector3(MainHero.transform.position.x + 1.2f, MainHero.transform.position.y + 0.9f, MainHero.transform.position.z);
-        
-        GameObject.FindGameObjectWithTag("MainHero").GetComponent<MainHeroScript>().TakeDamage(3);
-        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().PhaseCounter(HitCounter);
-
-        if (HitCounter > 2)
+        isAttacked = false;
+        if (!isAttacked)
         {
-            HitCounter = 0;
-        }
-        else
-        {
+            Vector3 DefaultPosition = this.transform.position;
 
-            HitCounter++;
-            Debug.Log(HitCounter);
+
+            this.transform.position = new Vector3(MainHero.transform.position.x + 1.2f, MainHero.transform.position.y + 0.9f, MainHero.transform.position.z);
+
+            GameObject.FindGameObjectWithTag("MainHero").GetComponent<MainHeroScript>().TakeDamage(3);
+            GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().PhaseCounter(HitCounter);
+            
+            if (HitCounter > 2)
+            {
+                HitCounter = 0;
+            }
+            else
+            {
+
+                HitCounter++;
+                Debug.Log(HitCounter);
+            }
+            this.transform.position = DefaultPosition;
+            isAttacked = true;
         }
+
         
-
-        //yield return new WaitForSeconds(2);
-        this.transform.position = DefaultPosition;
     }
     
 }

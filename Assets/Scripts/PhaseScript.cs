@@ -14,7 +14,7 @@ public class PhaseScript : MonoBehaviour
     [SerializeField]
     private GameObject DefencePhaseImage;
 
-    public UnityEvent GamePhaseChanged = new UnityEvent();
+    public UnityEvent DefencePhaseStarted = new UnityEvent();
 
     private void Start()
     {
@@ -48,15 +48,15 @@ public class PhaseScript : MonoBehaviour
 
         if (isAttackPhase)
         {
+            //Defence Phase started
             yield return new WaitForSeconds(1);
             isAttackPhase = false;
-            GamePhaseChanged.Invoke();
+            DefencePhaseStarted.Invoke();
         }
         if (!isAttackPhase)
         {
             yield return new WaitForSeconds(1);
             isAttackPhase = true;
-            GamePhaseChanged.Invoke();
         }
     }
 

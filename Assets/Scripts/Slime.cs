@@ -10,7 +10,7 @@ public class Bat : Enemy
     public void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GamePhaseChanged.AddListener(JumpAttack);
+        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().DefencePhaseStarted.AddListener(EnemyJumpAttack);
         //GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GamePhaseChanged.AddListener(PlayAttackAnimation);
     }
     public int SlimeDiceRoll(int MinDamage, int MaxDamage)
