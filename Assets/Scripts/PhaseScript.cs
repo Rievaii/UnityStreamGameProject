@@ -25,7 +25,7 @@ public class PhaseScript : MonoBehaviour
     public void PhaseCounter(int PhaseHitCounter)
     {
         //hits to change phase
-        if (PhaseHitCounter > 2)
+        if (PhaseHitCounter == 2)
         {
             StartCoroutine(ChangePhase());
         }

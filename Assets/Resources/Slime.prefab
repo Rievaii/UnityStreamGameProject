@@ -532,7 +532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -9.02, y: -1.36}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2809763812560853377
@@ -551,5 +551,7 @@ MonoBehaviour:
   enemyhealthbar: {fileID: 2809763812550325994}
   MainHero: {fileID: 6436473748789674123, guid: a22f2363c4f9e3941a0e7640609599bc, type: 3}
   isDead: 0
+  DamageDealt: 0
+  HitCounter: 0
   animator: {fileID: 2809763810793127651}
   isAttacking: 0
