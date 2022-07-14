@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Slime : Enemy
@@ -13,7 +14,7 @@ public class Slime : Enemy
     public void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().DefencePhaseStarted.AddListener(EnemyJumpAttack);
+        
     }
 
     private void Update()
@@ -30,7 +31,23 @@ public class Slime : Enemy
         {
             animator.SetBool("isUnderAttack", false);
         }
-      
+        
+    }
+    public IEnumerator BlinkToHero()
+    {
+        yield return new WaitForSeconds(1);
+        Vector3 DefaultPosition = this.transform.position;
+
+        yield return new WaitForSeconds(1f);
+
+        animator.SetBool("isAttacking", true);
+        this.transform.position = new Vector3(MainHero.transform.position.x + 1.2f, MainHero.transform.position.y + 0.9f, MainHero.transform.position.z);
+        //roll damage
+
+        yield return new WaitForSeconds(1f);
+
+        this.transform.position = DefaultPosition;
+        animator.SetBool("isAttacking", false);
     }
 }
 

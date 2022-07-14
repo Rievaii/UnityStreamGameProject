@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -11,9 +10,9 @@ public class Enemy : MonoBehaviour
     private bool isDead;
     private bool EnemyUnderAttack = false;
     public bool DamageDealt = false;
-    private bool isAttacked = false;
+    
     [SerializeField]
-    private int HitCounter = 0; 
+    private int HitCounter = 0;
 
     public void SetEnemyUnderAttack(bool EnemyUnderAttack, int Damage)
     {
@@ -47,35 +46,4 @@ public class Enemy : MonoBehaviour
             return isDead;
         }
     }
-
-    public void EnemyJumpAttack()
-    {
-        isAttacked = false;
-        if (!isAttacked)
-        {
-            Vector3 DefaultPosition = this.transform.position;
-
-
-            this.transform.position = new Vector3(MainHero.transform.position.x + 1.2f, MainHero.transform.position.y + 0.9f, MainHero.transform.position.z);
-
-            GameObject.FindGameObjectWithTag("MainHero").GetComponent<MainHeroScript>().TakeDamage(3);
-            GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().PhaseCounter(HitCounter);
-            
-            if (HitCounter > 2)
-            {
-                HitCounter = 0;
-            }
-            else
-            {
-
-                HitCounter++;
-                Debug.Log(HitCounter);
-            }
-            this.transform.position = DefaultPosition;
-            isAttacked = true;
-        }
-
-        
-    }
-    
 }

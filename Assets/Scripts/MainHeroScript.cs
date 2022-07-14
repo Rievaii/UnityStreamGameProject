@@ -62,25 +62,16 @@ public class MainHeroScript : MonoBehaviour
         
     }
    
+    //player attack handler
+    //move to phase script?
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) 
-        && !isAttacking
-        && phaseScript.GetGameAttackPhase())
+        && !isAttacking)
         {
             StartCoroutine(AttackHandler());
             animator.SetBool("isAttacking", false);
-            phaseScript.PhaseCounter(AttackCounter);
-            if (AttackCounter > 2)
-            {
-                AttackCounter = 0;
-            }
-            else
-            {
-                AttackCounter++;
-                Debug.Log(AttackCounter);
-            }
-            isAttacking = false;
         }
         
     }
