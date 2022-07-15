@@ -12,8 +12,8 @@ public class MainHeroScript : MonoBehaviour
 
     [SerializeField]
     private HealthBar MainHeroHealthBar;
-    private bool isAttacking = false;
-    private int AttackCounter = 0;
+    public bool isAttacking = false;
+    
 
 
     public void Start()
@@ -40,7 +40,7 @@ public class MainHeroScript : MonoBehaviour
         return Damage;
     }
 
-    private IEnumerator AttackHandler()
+    public IEnumerator AttackHandler()
     {
         Vector3 DefaultPosition = MainHero.transform.position;
 
@@ -59,20 +59,6 @@ public class MainHeroScript : MonoBehaviour
     {
         MainHeroHealthBar.TakeDamage(damage);
         //play takedamage and death animation
-        
-    }
-   
-    //player attack handler
-    //move to phase script?
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) 
-        && !isAttacking)
-        {
-            StartCoroutine(AttackHandler());
-            animator.SetBool("isAttacking", false);
-        }
         
     }
 }
