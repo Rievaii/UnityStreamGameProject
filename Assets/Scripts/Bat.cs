@@ -3,7 +3,8 @@ using UnityEngine;
 public class Slime : Enemy
 {
     public Animator animator;
-    public bool isAttacking = false;
+    
+    //slime
 
     public int BatDiceRoll(int MinDamage, int MaxDamage)
     {
@@ -13,6 +14,7 @@ public class Slime : Enemy
     public void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        PhaseScript.DefencePhaseStarted.AddListener(JumpAttack);
     }
 
     private void Update()
@@ -29,21 +31,13 @@ public class Slime : Enemy
         {
             animator.SetBool("isUnderAttack", false);
         }
-        if (!GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase() && !isAttacking )
+        if (isAttacking)
         {
-            //copy from slime this method
-            isAttacking = true;
-            if (isAttacking)
-            {
-                animator.SetBool("isAttacking", true);
-                StartCoroutine(JumpAttack(BatDiceRoll(1, 3)));
-                isAttacking = false;
-            }
+            animator.SetBool("isAttacking", true);
         }
-        if (GameObject.FindGameObjectWithTag("GamePhase").GetComponent<PhaseScript>().GetGameAttackPhase())
+        if (!isAttacking)
         {
             animator.SetBool("isAttacking", false);
-            isAttacking = false;
         }
     }
 }

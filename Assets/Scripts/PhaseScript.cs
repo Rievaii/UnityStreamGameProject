@@ -15,8 +15,8 @@ public class PhaseScript : MonoBehaviour
     [SerializeField]
     private GameObject DefencePhaseImage;
 
-    public UnityEvent DefencePhaseStarted;
-    public UnityEvent AttackPhaseStarted;
+    public static UnityEvent DefencePhaseStarted = new UnityEvent();
+    public static UnityEvent AttackPhaseStarted = new UnityEvent();
 
     public int AttackHitCounter;
     public int DefenceHitCounter;
@@ -49,6 +49,7 @@ public class PhaseScript : MonoBehaviour
         }
         if (AttackPhase)
         {
+            Debug.Log("Attack Phase");
             DefencePhase = false;
             PhaseAnimator.SetBool("AttackPhase", true);
             PhaseAnimator.SetBool("DefencePhase", false);
@@ -58,6 +59,7 @@ public class PhaseScript : MonoBehaviour
 
         if (DefencePhase)
         {
+            Debug.Log("Defence Phase");
             AttackPhase = false;
             PhaseAnimator.SetBool("DefencePhase", true);
             PhaseAnimator.SetBool("AttackPhase", false);

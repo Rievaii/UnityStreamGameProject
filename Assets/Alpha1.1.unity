@@ -3193,36 +3193,6 @@ MonoBehaviour:
   PhaseAnimator: {fileID: 1974781662}
   AttackPhaseImage: {fileID: 85484351}
   DefencePhaseImage: {fileID: 1635192951}
-  DefencePhaseStarted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: 5b8e3a99f448d2443a3ca1f38bc9fb51, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-  AttackPhaseStarted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: 5b8e3a99f448d2443a3ca1f38bc9fb51, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   AttackHitCounter: 0
   DefenceHitCounter: 0
 --- !u!1 &2016314348

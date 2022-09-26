@@ -4,11 +4,12 @@ using UnityEngine;
 public class Bat : Enemy
 {
     public Animator animator;
-    public bool isAttacking = false;
+    
 
     public void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        PhaseScript.DefencePhaseStarted.AddListener(JumpAttack);
     }
     public int SlimeDiceRoll(int MinDamage, int MaxDamage)
     {
@@ -30,10 +31,14 @@ public class Bat : Enemy
         {
             animator.SetBool("isUnderAttack", false);
         }
-        
+        if (isAttacking)
+        {
+            animator.SetBool("isAttacking", true);
+        }
+        if (!isAttacking)
+        {
+            animator.SetBool("isAttacking", false);
+        }
     }
-    public void GetEnemyIsAttacking()
-    {
-
-    }
+   
 }
