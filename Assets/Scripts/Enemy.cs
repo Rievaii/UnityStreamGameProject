@@ -10,9 +10,7 @@ public class Enemy : MonoBehaviour
     private bool isDead;
     private bool EnemyUnderAttack = false;
     public bool DamageDealt = false;
-    
-    [SerializeField]
-    private int HitCounter = 0;
+   
 
     public void SetEnemyUnderAttack(bool EnemyUnderAttack, int Damage)
     {
