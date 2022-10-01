@@ -1,12 +1,11 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class MainHeroScript : MonoBehaviour
 {
     //Main Hero position
-    public static GameObject MainHero;
-    public Vector3 DefaultPosition = MainHero.transform.position;
+    public GameObject MainHero;
+    public Vector3 StartPosition;
 
     //Enemy position
     public Transform EnemyPosition;
@@ -14,13 +13,14 @@ public class MainHeroScript : MonoBehaviour
     public Animator animator;
 
     private HealthBar MainHeroHealthBar;
+    public UnityEvent DealtDamage = new UnityEvent();
 
-    UnityEvent DealtDamage;
-    
 
     public void Start()
     {
         animator = GetComponent<Animator>();
+
+        StartPosition = MainHero.transform.position;
     }
 
     public void AttackHandler()
@@ -37,7 +37,7 @@ public class MainHeroScript : MonoBehaviour
 
     public void ReturnToPosition()
     {
-        MainHero.transform.position = DefaultPosition;
+        MainHero.transform.position = StartPosition;
         animator.SetBool("isAttacking", false);
     }
 
@@ -46,14 +46,14 @@ public class MainHeroScript : MonoBehaviour
         MainHeroHealthBar.TakeDamage(damage);
         //play takedamage and death animation 
         //subscribe to takedamageevent 
-        
+
     }
 
     private void Update()
     {
         if (Input.GetKeyDown("space"))
         {
-            AttackHandler(); 
+            AttackHandler();
         }
     }
 }

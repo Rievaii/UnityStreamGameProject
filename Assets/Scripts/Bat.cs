@@ -19,15 +19,16 @@ public class Slime : Enemy
 
     private void Update()
     {
-        if (GetEnemyUnderAttack())
+        if (UnderAttack)
         {
             animator.SetBool("isUnderAttack", true);
+            UnderAttack = false;
         }
         if (GetIsDead())
         {
             animator.SetBool("isDead", true);
         }
-        if (!GetEnemyUnderAttack())
+        if (!UnderAttack)
         {
             animator.SetBool("isUnderAttack", false);
         }

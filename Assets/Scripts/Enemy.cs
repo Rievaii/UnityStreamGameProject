@@ -8,24 +8,14 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private bool isDead;
-    private bool EnemyUnderAttack = false;
-    public bool DamageDealt = false;
-   
+    public bool UnderAttack { get; set; } = false;
 
-    public void SetEnemyUnderAttack(bool EnemyUnderAttack, int Damage)
+    public void SetEnemyUnderAttack()
     {
-        this.EnemyUnderAttack = EnemyUnderAttack;
-        enemyhealthbar.EnemyTakeDamage(Damage);
-    }
-    public void SetEnemyUnderAttack(bool EnemyUnderAttack)
-    {
-        this.EnemyUnderAttack = EnemyUnderAttack;
+        UnderAttack = true;
+        Debug.Log("Current enemy got 3 damage");
     }
 
-    public bool GetEnemyUnderAttack()
-    {
-        return EnemyUnderAttack;
-    }
     public float GetHP()
     {
         return enemyhealthbar.EnemySlider.value;

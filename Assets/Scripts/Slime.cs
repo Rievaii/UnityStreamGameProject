@@ -12,23 +12,21 @@ public class Bat : Enemy
         animator = GetComponentInChildren<Animator>();
         
     }
-    public int SlimeDiceRoll(int MinDamage, int MaxDamage)
-    {
-        int Damage = Random.Range(MinDamage, MaxDamage);
-        return Damage;
-    }
+
     private void Update()
     {
-
-        if (GetEnemyUnderAttack())
+        
+        if (UnderAttack)
         {
             animator.SetBool("isUnderAttack", true);
+            enemyhealthbar.EnemyTakeDamage(3);
+            UnderAttack = false;
         }
         if (GetIsDead())
         {
             animator.SetBool("isDead", true);
         }
-        if (!GetEnemyUnderAttack())
+        if (!UnderAttack)
         {
             animator.SetBool("isUnderAttack", false);
         }
